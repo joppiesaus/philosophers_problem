@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/08 17:31:13 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/08 17:42:38 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 #include <stdlib.h> /* malloc */
 
-/* TODO: 1 philosopher, 1 fork */
 /* inits the guests philosophers at the table, depends on forks. */
 t_thinker	*init_guests(t_table *table, uint32_t amount)
 {
@@ -27,15 +26,9 @@ t_thinker	*init_guests(t_table *table, uint32_t amount)
 		i = 0;
 		while (i < amount)
 		{
-			guests[i].right_fork = &table->forks[i];
+			guests[i].left_fork = &table->forks[i];
+			guests[i].right_fork = &table->forks[(i + 1) % amount];
 			guests[i].number = i + 1;
-			i++;
-		}
-		guests[0].left_fork = &table->forks[amount - 1];
-		i = 1;
-		while (i < amount)
-		{
-			guests[i].left_fork = &table->forks[i - 1];
 			i++;
 		}
 	}
