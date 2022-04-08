@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/08 16:43:01 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/08 17:02:54 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 #include <stdlib.h> /* malloc */
 
-t_philosopher	*init_guests(uint32_t amount)
+t_thinker	*init_guests(uint32_t amount)
 {
-	t_philosopher	*guests;
-	uint32_t		i;
+	t_thinker	*guests;
+	uint32_t	i;
 
-	guests = malloc(sizeof(t_philosopher) * amount);
+	guests = malloc(sizeof(t_thinker) * amount);
 	if (guests)
 	{
 		i = 0;

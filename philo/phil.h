@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/08 16:43:18 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/08 17:02:34 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,33 @@ typedef struct s_fork
 	pthread_mutex_t	mutex;
 }	t_fork;
 
-typedef struct s_philosopher
+/* I use thinker as an shorthand for philosopher, as
+ * philosopher is a really long type name IMO. */
+typedef struct s_thinker
 {
 	uint32_t	number;
-}	t_philosopher;
+}	t_thinker;
 
 typedef struct s_table
 {
-	t_philosopher	*guests;
-	t_fork			*forks;
-	uint32_t		population;
+	t_thinker	*guests;
+	t_fork		*forks;
+	uint32_t	population;
 }	t_table;
 
-int				init_table(t_table *table, uint32_t population);
-t_philosopher	*init_guests(uint32_t amount);
-t_fork			*init_forks(uint32_t amount);
+int			init_table(t_table *table, uint32_t population);
+t_thinker	*init_guests(uint32_t amount);
+t_fork		*init_forks(uint32_t amount);
 
-t_fork			*get_left_fork(t_table *table, t_philosopher *phil);
-t_fork			*get_right_fork(t_table *table, t_philosopher *phil);
+t_fork		*get_left_fork(t_table *table, t_thinker *phil);
+t_fork		*get_right_fork(t_table *table, t_thinker *phil);
 
-void			take_fork(t_fork *fork);
-void			return_fork(t_fork *fork);
+void		take_fork(t_fork *fork);
+void		return_fork(t_fork *fork);
 
-void			eat(t_philosopher *phil);
-void			think(t_philosopher *phil);
-void			sleep(t_philosopher *phil);
-void			starve(t_philosopher *phil);
+void		eat(t_thinker *phil);
+void		think(t_thinker *phil);
+void		sleep(t_thinker *phil);
+void		starve(t_thinker *phil);
 
 #endif
