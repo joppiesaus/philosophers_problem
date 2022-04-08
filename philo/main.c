@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/08 17:02:54 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/08 17:31:13 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 #include <stdlib.h> /* malloc */
 
-t_thinker	*init_guests(uint32_t amount)
+/* TODO: 1 philosopher, 1 fork */
+/* inits the guests philosophers at the table, depends on forks. */
+t_thinker	*init_guests(t_table *table, uint32_t amount)
 {
 	t_thinker	*guests;
 	uint32_t	i;
@@ -25,7 +27,15 @@ t_thinker	*init_guests(uint32_t amount)
 		i = 0;
 		while (i < amount)
 		{
+			guests[i].right_fork = &table->forks[i];
 			guests[i].number = i + 1;
+			i++;
+		}
+		guests[0].left_fork = &table->forks[amount - 1];
+		i = 1;
+		while (i < amount)
+		{
+			guests[i].left_fork = &table->forks[i - 1];
 			i++;
 		}
 	}
@@ -59,11 +69,11 @@ t_fork	*init_forks(uint32_t amount)
 int	init_table(t_table *table, uint32_t population)
 {
 	table->population = population;
-	table->guests = init_guests(population);
-	if (!table->guests)
-		return (0);
 	table->forks = init_forks(population);
 	if (!table->forks)
+		return (0);
+	table->guests = init_guests(table, population);
+	if (!table->guests)
 		return (0);
 	return (1);
 }

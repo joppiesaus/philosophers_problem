@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/08 17:02:34 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/08 17:28:14 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_fork
  * philosopher is a really long type name IMO. */
 typedef struct s_thinker
 {
+	t_fork		*left_fork;
+	t_fork		*right_fork;
 	uint32_t	number;
 }	t_thinker;
 
@@ -36,11 +38,8 @@ typedef struct s_table
 }	t_table;
 
 int			init_table(t_table *table, uint32_t population);
-t_thinker	*init_guests(uint32_t amount);
+t_thinker	*init_guests(t_table *table, uint32_t amount);
 t_fork		*init_forks(uint32_t amount);
-
-t_fork		*get_left_fork(t_table *table, t_thinker *phil);
-t_fork		*get_right_fork(t_table *table, t_thinker *phil);
 
 void		take_fork(t_fork *fork);
 void		return_fork(t_fork *fork);
