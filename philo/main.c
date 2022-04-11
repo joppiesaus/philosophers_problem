@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/11 13:04:01 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/11 13:52:27 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ t_thinker	*init_guests(t_table *table, uint32_t amount)
 			guests[i].left_fork = &table->forks[i];
 			guests[i].right_fork = &table->forks[(i + 1) % amount];
 			guests[i].number = i + 1;
+			guests[i].time_to_die = 100;
+			guests[i].time_to_eat = 100;
+			guests[i].time_to_sleep = 100;
 			i++;
 		}
 	}
@@ -46,6 +49,21 @@ int	init_table(t_table *table, uint32_t population)
 	table->guests = init_guests(table, population);
 	if (!table->guests)
 		return (0);
+	return (1);
+}
+
+int	init_threads(t_table *table)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < table->population)
+	{
+		if (pthread_create(&table->guests[i].thread, NULL,
+			&thinker_start_routine, (void *)&table->guests[i]) == -1)
+			return (0);
+		i++;
+	}
 	return (1);
 }
 

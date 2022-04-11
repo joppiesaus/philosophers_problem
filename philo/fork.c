@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:03:01 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/11 13:09:02 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/11 13:33:02 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	init_fork(t_fork *fork)
 	return (pthread_mutex_init(&fork->mutex, NULL) != -1);
 }
 
+/* creates and initializes an array with amount thinkers.
+ * returns the malloc'd array or NULL on failure. */
 t_fork	*init_forks(uint32_t amount)
 {
 	t_fork		*forks;
