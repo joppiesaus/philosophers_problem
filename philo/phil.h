@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 14:56:36 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:52:18 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_vars
 	uint32_t	time_to_die;
 	uint32_t	time_to_eat;
 	uint32_t	time_to_sleep;
+	int64_t		max_meals;
 }	t_vars;
 
 /* I use thinker as an shorthand for philosopher, as
@@ -51,6 +52,8 @@ typedef struct s_table
 	t_vars		*vars;
 	uint32_t	population;
 }	t_table;
+
+int			parse_args(int argc, char **argv, t_table *table);
 
 int			init_table(t_table *table, uint32_t population);
 t_thinker	*init_guests(t_table *table, uint32_t amount);

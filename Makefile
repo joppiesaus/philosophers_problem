@@ -6,7 +6,7 @@
 #    By: jobvan-d <jobvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/15 17:55:39 by jobvan-d      #+#    #+#                  #
-#    Updated: 2022/04/12 13:48:40 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/04/12 17:07:36 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ UNITY_CFG = -D UNITY_OUTPUT_COLOR -D UNITY_FIXTURE_NO_EXTRAS
 CFLAGS = -Wall -Wextra -Werror
 OBJ_DIR = obj
 
-DEPS = philo/fork.c philo/thinker.c philo/writer.c philo/arg_checking.c \
+DEPS = philo/fork.c philo/thinker.c philo/writer.c philo/parse_args.c \
+	philo/time.c philo/thinker_actions.c \
 	unity/src/unity.c unity/extras/fixture/src/unity_fixture.c $(wildcard test/*.c)
 HEADERS = $(wildcard philo/*.h)
 TEST_OBJ = $(DEPS:%.c=$(OBJ_DIR)/%.o)

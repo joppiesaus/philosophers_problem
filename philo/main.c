@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:43:00 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/12 16:04:00 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	init_threads(t_table *table)
 {
 	uint32_t	i;
 
+	table->vars->start_timestamp = get_time();
 	i = 0;
 	while (i < table->population)
 	{
@@ -78,12 +79,12 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	t_table	table;
 
-	vars.time_to_die = 100;
-	vars.time_to_eat = 100;
-	vars.time_to_sleep = 100;
-	vars.start_timestamp = get_time();
 	table.vars = &vars;
-	if (!init_table(&table, 5))
+	if (!parse_args(argc, argv, &table))
+	{
+		return (1);
+	}
+	else if (!init_table(&table, 5))
 	{
 		return (1);
 	}
