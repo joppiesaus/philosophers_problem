@@ -6,10 +6,15 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:56:52 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/11 14:51:10 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/12 14:43:34 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* I wrote all of this, then found out I just could've used printf...
+ * these functions just write strings/numbers/chars to a string, without
+ * null terminating them. It updates the index as well. It does NO
+ * BOUNDS CHECKING.
+ */
 #include "util.h"
 
 void	writer_wr_char(char *dst, size_t *i, const char c)
@@ -18,6 +23,7 @@ void	writer_wr_char(char *dst, size_t *i, const char c)
 	(*i)++;
 }
 
+/* if the compiler is smart it should inline wr_char */
 void	writer_wr_str(char *dst, size_t *i, const char *str)
 {
 	while (*str)
@@ -32,7 +38,7 @@ static void	m_rev_arr(char *str, const size_t len)
 	char	*end;
 	char	tmp;
 
-	end = str + len;
+	end = str + len - 1;
 	while (str < end)
 	{
 		tmp = *str;
@@ -43,7 +49,7 @@ static void	m_rev_arr(char *str, const size_t len)
 	}
 }
 
-void	writer_wr_uint(char *dst, size_t *i, size_t nbr)
+void	writer_wr_uint(char *dst, size_t *i, uint64_t nbr)
 {
 	size_t	len;
 

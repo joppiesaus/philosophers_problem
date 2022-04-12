@@ -6,11 +6,12 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/11 13:52:27 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/12 14:37:46 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phil.h"
+#include "util.h"
 
 #include <stdlib.h> /* malloc */
 
@@ -29,9 +30,7 @@ t_thinker	*init_guests(t_table *table, uint32_t amount)
 			guests[i].left_fork = &table->forks[i];
 			guests[i].right_fork = &table->forks[(i + 1) % amount];
 			guests[i].number = i + 1;
-			guests[i].time_to_die = 100;
-			guests[i].time_to_eat = 100;
-			guests[i].time_to_sleep = 100;
+			guests[i].vars = table->vars;
 			i++;
 		}
 	}
@@ -49,7 +48,7 @@ int	init_table(t_table *table, uint32_t population)
 	table->guests = init_guests(table, population);
 	if (!table->guests)
 		return (0);
-	return (1);
+	return (init_threads(table));
 }
 
 int	init_threads(t_table *table)
@@ -62,6 +61,7 @@ int	init_threads(t_table *table)
 		if (pthread_create(&table->guests[i].thread, NULL,
 			&thinker_start_routine, (void *)&table->guests[i]) == -1)
 			return (0);
+		thinker_print_msg(&table->guests[i], "says hello\n");
 		i++;
 	}
 	return (1);
@@ -69,8 +69,14 @@ int	init_threads(t_table *table)
 
 int	main(int argc, char **argv)
 {
+	t_vars	vars;
 	t_table	table;
 
+	vars.time_to_die = 100;
+	vars.time_to_eat = 100;
+	vars.time_to_sleep = 100;
+	vars.start_timestamp = get_time();
+	table.vars = &vars;
 	if (!init_table(&table, 5))
 	{
 		return (1);

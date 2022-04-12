@@ -6,40 +6,42 @@
 #    By: jobvan-d <jobvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/15 17:55:39 by jobvan-d      #+#    #+#                  #
-#    Updated: 2022/04/11 17:09:12 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/04/12 13:48:40 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-INCL = -I./unity/src -I./unity/extras/fixture/src -I./philo
-CFLAGS = -Wall -Wextra
+NAME = test_philo
+
+INC = -I./unity/src -I./unity/extras/fixture/src -I./philo
+
+UNITY_CFG = -D UNITY_OUTPUT_COLOR -D UNITY_FIXTURE_NO_EXTRAS
+
+CFLAGS = -Wall -Wextra -Werror
 OBJ_DIR = obj
 
-DEPS = philo/fork.c philo/thinker.c philo/writer.c philo/arg_checking.c unity/extras/fixture/src/unity_fixture.c $(wildcard test/*.c)
+DEPS = philo/fork.c philo/thinker.c philo/writer.c philo/arg_checking.c \
+	unity/src/unity.c unity/extras/fixture/src/unity_fixture.c $(wildcard test/*.c)
 HEADERS = $(wildcard philo/*.h)
 TEST_OBJ = $(DEPS:%.c=$(OBJ_DIR)/%.o)
 
-TEST_DEPS = $(shell find test -type f -name "*.c")
-TEST_OBJ = $(TEST_DEPS:%.c=%.o)
-
-all: test
+all: $(NAME)
 
 $(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCL) -c -o $@ $<
+	$(CC) $(CFLAGS) $(INC) $(UNITY_CFG) -c -o $@ $<
 
 $(OBJ_DIR):
 	mkdir $@
 
-test: $(TEST_OBJ)
-	$(CC) $(CFLAGS) $(INCL) -o $@ $^
+$(NAME): $(TEST_OBJ)
+	$(CC) $(CFLAGS) $(INC) $(UNITY_CFG) -o $@ $^
 
 clean:
-	rm -f $(OBJ_DIR)/*.o
+	rm -rf $(OBJ_DIR)/*
 
 fclean: clean
 	rm -f $(NAME)
-	rm -f test
 
 re: fclean $(NAME)
 
