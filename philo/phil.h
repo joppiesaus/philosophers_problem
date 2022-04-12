@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 14:36:26 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/12 14:56:36 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_thinker
 {
 	t_fork		*left_fork;
 	t_fork		*right_fork;
+	uint64_t	last_meal_timestamp;
 	pthread_t	thread;
 	uint32_t	number;
 	t_vars		*vars;

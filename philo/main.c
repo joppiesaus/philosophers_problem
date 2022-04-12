@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 14:37:46 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/12 15:43:00 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,15 @@ int	init_threads(t_table *table)
 	while (i < table->population)
 	{
 		if (pthread_create(&table->guests[i].thread, NULL,
-			&thinker_start_routine, (void *)&table->guests[i]) == -1)
+				&thinker_start_routine, (void *)&table->guests[i]) == -1)
 			return (0);
-		thinker_print_msg(&table->guests[i], "says hello\n");
+		i++;
+	}
+	i = 0;
+	while (i < table->population)
+	{
+		if (pthread_join(table->guests[i].thread, NULL) == -1)
+			return (0);
 		i++;
 	}
 	return (1);
