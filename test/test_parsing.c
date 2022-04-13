@@ -4,7 +4,6 @@
 
 int	is_correct_number_str(const char *str);
 int	atoui(const char *str, uint32_t *ref);
-int	parse_args(int argc, char **argv, t_table *table);
 
 TEST_GROUP(Parser);
 
@@ -87,9 +86,11 @@ TEST(Parser, ParseArgsShouldFail)
 	table.vars = &vars;
 	char	*args[] = { "phil", "4294967296", "100", "100", "100", "4294967295" };
 	char	*args2[] = { "phil", "42944", "100", "4967295" };
+	char	*args3[] = { "phil", "100", "100", "4967295", "100", "200", "3" };
 
 	TEST_ASSERT_EQUAL_INT(0, parse_args(6, args, &table));
 	TEST_ASSERT_EQUAL_INT(0, parse_args(4, args2, &table));
+	TEST_ASSERT_EQUAL_INT(0, parse_args(7, args3, &table));
 }
 
 TEST_GROUP_RUNNER(Parser)
