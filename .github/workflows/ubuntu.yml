@@ -1,0 +1,50 @@
+name: C compile, test, and norminette CI (Ubuntu)
+# Thanks to https://github.com/caio-vinicius/norminette-github-actions for the norminette part
+# norminette 3.3.51
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: make philo
+      run: make -C philo
+  norminette:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Norminette
+      run: |
+        python -m pip install --upgrade pip
+        pip install norminette==3.3.51
+    - name: Linter with Norminette
+      run: |
+        norminette philo/
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: clone unity testing framework
+      run: |
+        git clone https://github.com/ThrowTheSwitch/Unity unity
+        cd unity
+        git checkout b9e9268d92e5339e8cdd251c880429ce30ff7a11
+        cd ..
+    - name: make tests
+      run: make
+    - name: run tests
+      run: ./test_philo
