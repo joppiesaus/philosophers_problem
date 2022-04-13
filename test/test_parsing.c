@@ -86,8 +86,10 @@ TEST(Parser, ParseArgsShouldFail)
 
 	table.vars = &vars;
 	char	*args[] = { "phil", "4294967296", "100", "100", "100", "4294967295" };
+	char	*args2[] = { "phil", "42944", "100", "4967295" };
 
 	TEST_ASSERT_EQUAL_INT(0, parse_args(6, args, &table));
+	TEST_ASSERT_EQUAL_INT(0, parse_args(4, args2, &table));
 }
 
 TEST_GROUP_RUNNER(Parser)
