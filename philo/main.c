@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:04:00 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/13 12:52:42 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 #include <stdlib.h> /* malloc */
 
 /* inits the guests philosophers at the table, depends on forks. */
-t_thinker	*init_guests(t_table *table, uint32_t amount)
+t_thinker	*init_guests(t_table *table)
 {
 	t_thinker	*guests;
 	uint32_t	i;
 
-	guests = malloc(sizeof(t_thinker) * amount);
+	guests = malloc(sizeof(t_thinker) * table->population);
 	if (guests)
 	{
 		i = 0;
-		while (i < amount)
+		while (i < table->population)
 		{
 			guests[i].left_fork = &table->forks[i];
-			guests[i].right_fork = &table->forks[(i + 1) % amount];
+			guests[i].right_fork = &table->forks[(i + 1) % table->population];
 			guests[i].number = i + 1;
 			guests[i].vars = table->vars;
 			i++;
@@ -39,13 +39,12 @@ t_thinker	*init_guests(t_table *table, uint32_t amount)
 
 /* initializes a table with philosophers and forks.
  * no threading yet. Returns 1 on success, 0 on malloc fail. */
-int	init_table(t_table *table, uint32_t population)
+int	init_table(t_table *table)
 {
-	table->population = population;
-	table->forks = init_forks(population);
+	table->forks = init_forks(table->population);
 	if (!table->forks)
 		return (0);
-	table->guests = init_guests(table, population);
+	table->guests = init_guests(table);
 	if (!table->guests)
 		return (0);
 	return (init_threads(table));
@@ -84,7 +83,7 @@ int	main(int argc, char **argv)
 	{
 		return (1);
 	}
-	else if (!init_table(&table, 5))
+	else if (!init_table(&table))
 	{
 		return (1);
 	}

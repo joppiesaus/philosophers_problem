@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 16:52:18 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/13 12:52:52 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ typedef struct s_table
 
 int			parse_args(int argc, char **argv, t_table *table);
 
-int			init_table(t_table *table, uint32_t population);
-t_thinker	*init_guests(t_table *table, uint32_t amount);
+int			init_table(t_table *table);
+t_thinker	*init_guests(t_table *table);
 t_fork		*init_forks(uint32_t amount);
 int			init_threads(t_table *table);
 
