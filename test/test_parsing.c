@@ -59,7 +59,7 @@ TEST(Parser, ParseArgs5)
 	TEST_ASSERT_EQUAL_UINT32(100, table.vars->time_to_die);
 	TEST_ASSERT_EQUAL_UINT32(100, table.vars->time_to_eat);
 	TEST_ASSERT_EQUAL_UINT32(100, table.vars->time_to_sleep);
-	TEST_ASSERT_EQUAL_INT64(-1, table.vars->max_meals);
+	TEST_ASSERT_EQUAL_UINT32(0, table.vars->is_max_meals_enabled);
 }
 
 TEST(Parser, ParseArgs6)
@@ -76,6 +76,7 @@ TEST(Parser, ParseArgs6)
 	TEST_ASSERT_EQUAL_UINT32(100, table.vars->time_to_eat);
 	TEST_ASSERT_EQUAL_UINT32(100, table.vars->time_to_sleep);
 	TEST_ASSERT_EQUAL_INT64(4294967295, table.vars->max_meals);
+	TEST_ASSERT_EQUAL_UINT32(1, table.vars->is_max_meals_enabled);
 }
 
 TEST(Parser, ParseArgsShouldFail)

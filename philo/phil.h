@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:52:52 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/20 14:21:29 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ typedef struct s_vars
 	uint32_t	time_to_die;
 	uint32_t	time_to_eat;
 	uint32_t	time_to_sleep;
-	int64_t		max_meals;
+	uint32_t	max_meals;
+	uint32_t	is_max_meals_enabled;
 }	t_vars;
 
 /* I use thinker as an shorthand for philosopher, as

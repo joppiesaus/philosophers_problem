@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:56:09 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:50:13 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/20 14:22:30 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,13 @@ int	parse_args(int argc, char **argv, t_table *table)
 		&table->vars->time_to_die,
 		&table->vars->time_to_eat,
 		&table->vars->time_to_sleep,
-		(uint32_t *)&table->vars->max_meals
+		&table->vars->max_meals
 	};
 	int				i;
 
 	if (!check_args(argc, argv))
 		return (0);
 	i = 1;
-	table->vars->max_meals = 0;
 	while (i < argc)
 	{
 		if (!atoui(argv[i], (uint32_t *)references[i - 1]))
@@ -99,7 +98,6 @@ int	parse_args(int argc, char **argv, t_table *table)
 		}
 		i++;
 	}
-	if (argc < 6)
-		table->vars->max_meals = -1;
+	table->vars->is_max_meals_enabled = (argc >= 6);
 	return (1);
 }
