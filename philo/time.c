@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/12 14:20:11 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 15:39:57 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/22 18:06:25 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <sys/time.h> /* gettimeofday */
 
 /* returns the amount of ms since the program began. */
-uint64_t	get_time_since_start(t_vars *vars)
+uint64_t	get_time_since_start(const t_vars *vars)
 {
 	return (get_time() - vars->start_timestamp);
 }

@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   util.h                                             :+:    :+:            */
+/*   util.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/04/11 16:57:39 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/25 15:16:53 by jobvan-d      ########   odam.nl         */
+/*   Created: 2022/04/25 15:17:00 by jobvan-d      #+#    #+#                 */
+/*   Updated: 2022/04/25 15:26:14 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_H
-# define UTIL_H
+#include "util.h"
 
-# include "phil.h"
-
-void		writer_wr_char(char *dst, size_t *i, const char c);
-void		writer_wr_str(char *dst, size_t *i, const char *str);
-void		writer_wr_uint(char *dst, size_t *i, uint64_t nbr);
-
-uint64_t	get_time(void);
-uint64_t	get_time_since_start(const t_vars *vars);
-
-int			msleep(uint64_t ms);
-
-uint32_t	min(uint32_t a, uint32_t b);
-
-#endif
+/* returns the lesser value of a and b. */
+uint32_t	min(uint32_t a, uint32_t b)
+{
+	if (a < b)
+	{
+		return (a);
+	}
+	return (b);
+}

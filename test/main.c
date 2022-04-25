@@ -5,6 +5,7 @@ static void	run_all_tests(void)
 {
 	RUN_TEST_GROUP(Writer);
 	RUN_TEST_GROUP(Parser);
+	RUN_TEST_GROUP(Misc);
 }
 
 int	main(int argc, const char *argv[])

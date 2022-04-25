@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/13 12:52:42 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/25 17:39:28 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "util.h"
 
 #include <stdlib.h> /* malloc */
+#include <unistd.h> /* write */
 
 /* inits the guests philosophers at the table, depends on forks. */
 t_thinker	*init_guests(t_table *table)
@@ -31,6 +32,13 @@ t_thinker	*init_guests(t_table *table)
 			guests[i].right_fork = &table->forks[(i + 1) % table->population];
 			guests[i].number = i + 1;
 			guests[i].vars = table->vars;
+			guests[i].meals_eaten = 0;
+			if (pthread_mutex_init(&guests[i].meals_eaten_mutex, NULL) == -1
+				|| pthread_mutex_init(&guests[i].last_meal_mutex, NULL) == -1)
+			{
+				free(guests);
+				return (NULL);
+			}
 			i++;
 		}
 	}
@@ -54,6 +62,9 @@ int	init_threads(t_table *table)
 {
 	uint32_t	i;
 
+	table->should_stop = 0;
+	if (pthread_mutex_init(&table->should_stop_mutex, NULL) == -1)
+		return (0);
 	table->vars->start_timestamp = get_time();
 	i = 0;
 	while (i < table->population)
@@ -63,15 +74,24 @@ int	init_threads(t_table *table)
 			return (0);
 		i++;
 	}
-	i = 0;
+	if (pthread_create(&table->watchdog_thread, NULL, &watchdog_routine,
+			(void *)table) == -1)
+	{
+		return (0);
+	}
+	if (pthread_join(table->watchdog_thread, NULL) == -1)
+	{
+		return (0);
+	}
+	return (1);
+}
+/*i = 0;
 	while (i < table->population)
 	{
 		if (pthread_join(table->guests[i].thread, NULL) == -1)
 			return (0);
 		i++;
-	}
-	return (1);
-}
+	}*/
 
 int	main(int argc, char **argv)
 {
@@ -85,6 +105,7 @@ int	main(int argc, char **argv)
 	}
 	else if (!init_table(&table))
 	{
+		write(2, "malloc or mutex init fail\n", 26);
 		return (1);
 	}
 	return (0);
