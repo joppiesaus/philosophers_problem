@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:56:52 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/12 14:43:34 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/27 15:31:11 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,21 @@ static void	m_rev_arr(char *str, const size_t len)
 	}
 }
 
+/* I wish I could use a do-while loop... */
 void	writer_wr_uint(char *dst, size_t *i, uint64_t nbr)
 {
 	size_t	len;
 
-	if (nbr == 0)
-	{
-		writer_wr_char(dst, i, '0');
-		return ;
-	}
 	len = 0;
-	while (nbr > 0)
+	while (1)
 	{
 		dst[*i + len] = (nbr % 10) + '0';
 		nbr /= 10;
 		len++;
+		if (nbr == 0)
+		{
+			break ;
+		}
 	}
 	m_rev_arr(dst + *i, len);
 	*i += len;
