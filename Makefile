@@ -6,7 +6,7 @@
 #    By: jobvan-d <jobvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/15 17:55:39 by jobvan-d      #+#    #+#                  #
-#    Updated: 2022/04/25 17:27:29 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/04/27 14:48:32 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = test_philo
 
 INC = -I./unity/src -I./unity/extras/fixture/src -I./philo
 
-UNITY_CFG = -D UNITY_OUTPUT_COLOR -D UNITY_FIXTURE_NO_EXTRAS
+UNITY_CFG = -D UNITY_OUTPUT_COLOR -D UNITY_FIXTURE_NO_EXTRAS -D IS_TESTING=1
 
 CFLAGS = -Wall -Wextra -Werror
 OBJ_DIR = obj

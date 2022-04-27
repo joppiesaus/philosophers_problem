@@ -6,15 +6,23 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:56:09 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/27 14:26:35 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/27 14:50:00 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phil.h"
 
+/* so when I am testing I want certain functions to be exposed, but not on a
+ * normal build. */
+#if IS_TESTING == 1
+# define M_TYPE int
+#else
+# define M_TYPE static int
+#endif
+
 /* TODO: make static on final build */
 /* checks wether str is a number */
-int	is_correct_number_str(const char *str)
+M_TYPE	is_correct_number_str(const char *str)
 {
 	if (*str == 0)
 	{
@@ -32,7 +40,7 @@ int	is_correct_number_str(const char *str)
 }
 
 /* checks amount of arguments is correct and whether every arg is a number. */
-int	check_args(int argc, char **argv)
+M_TYPE	check_args(int argc, char **argv)
 {
 	int	i;
 
@@ -55,7 +63,7 @@ int	check_args(int argc, char **argv)
 /* ascii to unsigned int. Assumes str had passed is_correct_number_str.
  * ref is set to the resulting value on success. Returns 1 on success,
  * 0 on overflow. */
-int	atoui(const char *str, uint32_t *ref)
+M_TYPE	atoui(const char *str, uint32_t *ref)
 {
 	uint32_t	res;
 	uint32_t	prev;
