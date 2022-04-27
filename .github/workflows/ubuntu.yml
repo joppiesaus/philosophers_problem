@@ -42,7 +42,7 @@ jobs:
       run: |
         git clone https://github.com/ThrowTheSwitch/Unity unity
         cd unity
-        git checkout b9e9268d92e5339e8cdd251c880429ce30ff7a11
+        git checkout --quiet b9e9268d92e5339e8cdd251c880429ce30ff7a11
         cd ..
     - name: make tests
       run: make

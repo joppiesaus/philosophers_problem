@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/25 15:12:06 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/27 14:21:50 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@ typedef struct s_fork
 
 typedef struct s_vars
 {
-	uint64_t	start_timestamp;
-	uint32_t	time_to_die;
-	uint32_t	time_to_eat;
-	uint32_t	time_to_sleep;
-	uint32_t	max_meals;
-	uint32_t	is_max_meals_enabled;
+	struct s_table	*table;
+	uint64_t		start_timestamp;
+	uint32_t		time_to_die;
+	uint32_t		time_to_eat;
+	uint32_t		time_to_sleep;
+	uint32_t		max_meals;
+	uint32_t		is_max_meals_enabled;
 }	t_vars;
 
 /* I use thinker as an shorthand for philosopher, as
@@ -57,6 +58,7 @@ typedef struct s_table
 	uint32_t		population;
 	uint32_t		should_stop;
 	pthread_mutex_t	should_stop_mutex;
+	pthread_mutex_t	stdout_mutex;
 	pthread_t		watchdog_thread;
 }	t_table;
 
@@ -71,11 +73,13 @@ void		take_fork(t_fork *fork);
 void		return_fork(t_fork *fork);
 
 void		*thinker_start_routine(void *arg);
-void		thinker_print_msg(t_thinker *thinker, const char *msg);
+int			thinker_print_msg(t_thinker *thinker, const char *msg);
+void		thinker_write_to_str(t_thinker *thinker, char *dst, size_t *i,
+				const char *msg);
 
-void		eat(t_thinker *phil);
-void		think(t_thinker *phil);
-void		thinker_sleep(t_thinker *phil);
+int			eat(t_thinker *phil);
+int			think(t_thinker *phil);
+int			thinker_sleep(t_thinker *phil);
 void		starve(t_thinker *phil);
 
 void		*watchdog_routine(void *arg);

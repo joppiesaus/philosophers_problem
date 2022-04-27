@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/25 17:39:28 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/27 14:23:20 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,17 @@ int	init_table(t_table *table)
 {
 	table->forks = init_forks(table->population);
 	if (!table->forks)
+	{
 		return (0);
+	}
 	table->guests = init_guests(table);
 	if (!table->guests)
+	{
+		return (0);
+	}
+	table->should_stop = 0;
+	if (pthread_mutex_init(&table->should_stop_mutex, NULL) == -1
+		|| pthread_mutex_init(&table->stdout_mutex, NULL) == -1)
 		return (0);
 	return (init_threads(table));
 }
@@ -62,36 +70,29 @@ int	init_threads(t_table *table)
 {
 	uint32_t	i;
 
-	table->should_stop = 0;
-	if (pthread_mutex_init(&table->should_stop_mutex, NULL) == -1)
-		return (0);
 	table->vars->start_timestamp = get_time();
 	i = 0;
 	while (i < table->population)
 	{
+		table->guests[i].last_meal_timestamp = table->vars->start_timestamp;
 		if (pthread_create(&table->guests[i].thread, NULL,
 				&thinker_start_routine, (void *)&table->guests[i]) == -1)
 			return (0);
 		i++;
 	}
 	if (pthread_create(&table->watchdog_thread, NULL, &watchdog_routine,
-			(void *)table) == -1)
-	{
+			(void *)table) == -1
+		|| pthread_join(table->watchdog_thread, NULL) == -1)
 		return (0);
-	}
-	if (pthread_join(table->watchdog_thread, NULL) == -1)
-	{
-		return (0);
-	}
-	return (1);
-}
-/*i = 0;
+	i = 0;
 	while (i < table->population)
 	{
 		if (pthread_join(table->guests[i].thread, NULL) == -1)
 			return (0);
 		i++;
-	}*/
+	}
+	return (1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -99,13 +100,14 @@ int	main(int argc, char **argv)
 	t_table	table;
 
 	table.vars = &vars;
+	vars.table = &table;
 	if (!parse_args(argc, argv, &table))
 	{
 		return (1);
 	}
 	else if (!init_table(&table))
 	{
-		write(2, "malloc or mutex init fail\n", 26);
+		write(2, "malloc, mutex or thread init fail\n", 34);
 		return (1);
 	}
 	return (0);

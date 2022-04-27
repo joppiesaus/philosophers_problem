@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:56:09 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/20 14:22:30 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/04/27 14:26:35 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	is_correct_number_str(const char *str)
 	return (1);
 }
 
+/* checks amount of arguments is correct and whether every arg is a number. */
 int	check_args(int argc, char **argv)
 {
 	int	i;
@@ -92,7 +93,8 @@ int	parse_args(int argc, char **argv, t_table *table)
 	i = 1;
 	while (i < argc)
 	{
-		if (!atoui(argv[i], (uint32_t *)references[i - 1]))
+		if (!atoui(argv[i], (uint32_t *)references[i - 1])
+			|| *references[i - 1] == 0)
 		{
 			return (0);
 		}

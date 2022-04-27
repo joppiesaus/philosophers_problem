@@ -94,6 +94,21 @@ TEST(Parser, ParseArgsShouldFail)
 	TEST_ASSERT_EQUAL_INT(0, parse_args(7, args3, &table));
 }
 
+TEST(Parser, ParseArgsZeroArg)
+{
+	t_vars	vars;
+	t_table	table;
+
+	table.vars = &vars;
+	char	*args[] = { "phil", "0", "100", "100", "100" };
+	char	*args2[] = { "phil", "42944", "100", "4967295", "0" };
+	char	*args3[] = { "phil", "100", "0", "24", "100" };
+
+	TEST_ASSERT_EQUAL_INT(0, parse_args(5, args, &table));
+	TEST_ASSERT_EQUAL_INT(0, parse_args(6, args2, &table));
+	TEST_ASSERT_EQUAL_INT(0, parse_args(5, args3, &table));
+}
+
 TEST_GROUP_RUNNER(Parser)
 {
 	RUN_TEST_CASE(Parser, NumberArg);
@@ -101,4 +116,5 @@ TEST_GROUP_RUNNER(Parser)
 	RUN_TEST_CASE(Parser, ParseArgs5);
 	RUN_TEST_CASE(Parser, ParseArgs6);
 	RUN_TEST_CASE(Parser, ParseArgsShouldFail);
+	RUN_TEST_CASE(Parser, ParseArgsZeroArg);
 }
