@@ -6,7 +6,7 @@
 #    By: jobvan-d <jobvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/15 17:55:39 by jobvan-d      #+#    #+#                  #
-#    Updated: 2022/04/27 13:55:47 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/04/27 14:38:31 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJ = $(DEPS:%.c=$(OBJ_DIR)/%.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -lpthread
 
 $(OBJ_DIR)/%.o: %.c $(HEADERS) | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c -o $@ $<
