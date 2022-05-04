@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/28 14:09:07 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/05/04 17:37:51 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/04 17:55:06 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "util.h"
 
 #include <stdlib.h> /* exit */
+#include <fcntl.h> /* O_CREAT, O_EXCL */
 
 static int	initsem(sem_t **sem, const char *name, const uint32_t value)
 {
