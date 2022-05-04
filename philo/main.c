@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/27 14:23:20 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/04 17:45:59 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h> /* write */
 
 /* inits the guests philosophers at the table, depends on forks. */
-t_thinker	*init_guests(t_table *table)
+static t_thinker	*init_guests(t_table *table)
 {
 	t_thinker	*guests;
 	uint32_t	i;
@@ -45,28 +45,7 @@ t_thinker	*init_guests(t_table *table)
 	return (guests);
 }
 
-/* initializes a table with philosophers and forks.
- * no threading yet. Returns 1 on success, 0 on malloc fail. */
-int	init_table(t_table *table)
-{
-	table->forks = init_forks(table->population);
-	if (!table->forks)
-	{
-		return (0);
-	}
-	table->guests = init_guests(table);
-	if (!table->guests)
-	{
-		return (0);
-	}
-	table->should_stop = 0;
-	if (pthread_mutex_init(&table->should_stop_mutex, NULL) == -1
-		|| pthread_mutex_init(&table->stdout_mutex, NULL) == -1)
-		return (0);
-	return (init_threads(table));
-}
-
-int	init_threads(t_table *table)
+static int	init_threads(t_table *table)
 {
 	uint32_t	i;
 
@@ -94,6 +73,27 @@ int	init_threads(t_table *table)
 	return (1);
 }
 
+/* initializes a table with philosophers and forks, then runs the threads.
+ * Returns 1 on success, 0 on malloc fail. */
+static int	init_table(t_table *table)
+{
+	table->forks = init_forks(table->population);
+	if (!table->forks)
+	{
+		return (0);
+	}
+	table->guests = init_guests(table);
+	if (!table->guests)
+	{
+		return (0);
+	}
+	table->should_stop = 0;
+	if (pthread_mutex_init(&table->should_stop_mutex, NULL) == -1
+		|| pthread_mutex_init(&table->stdout_mutex, NULL) == -1)
+		return (0);
+	return (init_threads(table));
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
@@ -110,5 +110,7 @@ int	main(int argc, char **argv)
 		write(2, "malloc, mutex or thread init fail\n", 34);
 		return (1);
 	}
+	free(table.guests);
+	free(table.forks);
 	return (0);
 }

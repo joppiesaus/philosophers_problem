@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 1584/07/10 13:30:01 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/27 14:27:22 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/04 17:47:22 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	eat(t_thinker *thinker)
 		return (0);
 	else if (!mtake_fork(thinker, thinker->right_fork))
 	{
-		return_fork(thinker->left_fork);
+		if (thinker->left_fork != thinker->right_fork)
+			return_fork(thinker->left_fork);
 		return (0);
 	}
 	else if (!thinker_print_msg(thinker, "is eating")

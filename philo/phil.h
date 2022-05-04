@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/27 14:21:50 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/04 17:46:49 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 /* I bet these philosophers are thinking about Shopenhauer and David Benatar's
 Better Never to Have Been. Free them from their eternal tornment. */
 
-# include <pthread.h>
-# include <stdint.h>
+# include <pthread.h> /* pthread */
+# include <stdint.h> /* uint32_t */
 
 typedef struct s_fork
 {
@@ -64,10 +64,7 @@ typedef struct s_table
 
 int			parse_args(int argc, char **argv, t_table *table);
 
-int			init_table(t_table *table);
-t_thinker	*init_guests(t_table *table);
 t_fork		*init_forks(uint32_t amount);
-int			init_threads(t_table *table);
 
 void		take_fork(t_fork *fork);
 void		return_fork(t_fork *fork);
