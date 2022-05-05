@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:30:57 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/27 14:20:43 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/05 12:53:25 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	*thinker_start_routine(void *arg)
 	return (NULL);
 }
 
+/* writes a message, checking locks as well. */
 int	thinker_print_msg(t_thinker *thinker, const char *msg)
 {
 	char	dst[WRITER_BUF_LEN];
@@ -59,6 +60,8 @@ int	thinker_print_msg(t_thinker *thinker, const char *msg)
 	return (1);
 }
 
+/* just writes a message in the <timestamp> <philosopher> <message> format,
+ * to a buffer(not to stdout). */
 void	thinker_write_to_str(t_thinker *thinker, char *dst, size_t *i,
 	const char *msg)
 {

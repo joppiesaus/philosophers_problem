@@ -6,7 +6,7 @@
 #    By: jobvan-d <jobvan-d@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/02/15 17:55:39 by jobvan-d      #+#    #+#                  #
-#    Updated: 2022/05/04 17:50:20 by jobvan-d      ########   odam.nl          #
+#    Updated: 2022/05/05 12:33:03 by jobvan-d      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@
 NAME = philo_bonus
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-# -fsanitize=thread -g
 OBJ_DIR = obj
 
 DEPS = $(wildcard *.c)

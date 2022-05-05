@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/22 17:40:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/27 14:31:44 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/05 12:46:33 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static int	check_max_meals(t_thinker *thinker)
 	return (status);
 }
 
+/* returns 1 if the simulation should stop, 0 on continue. */
 static int	process(const t_table *table)
 {
 	uint32_t	i;

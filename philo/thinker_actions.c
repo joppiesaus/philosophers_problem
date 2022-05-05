@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 1584/07/10 13:30:01 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/05/04 17:47:22 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/05 12:43:24 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "util.h"
 
 #include <unistd.h> /* write */
+
+/* basically, every action does a death check, thinker_print_msg as well. */
 
 /* takes a fork and prints a message. if it sees that the simulation has
  * ended, returns the fork. Also, quite sad return fork doesn't have a
@@ -70,9 +72,12 @@ int	thinker_sleep(t_thinker *thinker)
 			thinker->vars->time_to_sleep));
 }
 
+/* some termcaps for fancy colors */
 #define REDBOLD "\x1B[1;37;41m"
 #define RESET "\x1B[0m"
 
+/* this is a special action, the philosopher itself shouldn't do
+ * (it's dead after all), but is instead called by the watchdog. */
 void	starve(t_thinker *thinker)
 {
 	char	buf[WRITER_BUF_LEN];

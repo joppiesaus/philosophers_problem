@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:56:09 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/04/27 14:50:00 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/05 12:50:08 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define M_TYPE static int
 #endif
 
-/* TODO: make static on final build */
 /* checks wether str is a number */
 M_TYPE	is_correct_number_str(const char *str)
 {

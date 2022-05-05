@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/22 17:40:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/05/04 17:01:58 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/05 12:47:34 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 #include <unistd.h> /* usleep */
 
-/* we do not unlock the stdout semaphore, so that everyone thinker just waits
- * until they are killed by the killer. */
+/* we do not unlock the stdout semaphore on death, so that everyone thinker
+ * just waits until they are killed by the killer. */
 static int	check_death(t_thinker *thinker)
 {
 	int	status;

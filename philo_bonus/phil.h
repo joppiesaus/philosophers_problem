@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:56:47 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/05/04 17:44:19 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/05 12:48:51 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ typedef struct s_thinker
 	t_vars			*vars;
 }	t_thinker;
 
+/* the should_stop sem is a bit of cruft, I actually think I can write it
+ * without it, however this is a modified version of the mandatory philo,
+ * and not really in the mood to rewrite further. */
 typedef struct s_table
 {
 	t_thinker		*thinker;

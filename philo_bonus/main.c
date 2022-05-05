@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/15 17:55:03 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/05/04 17:52:19 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/05 12:54:01 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ static void	init_forks(t_table *table)
 	sem_post(table->pids_sem);
 }
 
+/* waits for the children/thinkers to finish, kills the rest on exit.
+ * it is protected by a semaphore so that the killer thread doesn't
+ * kill things twice or something/data race. */
 static void	wait_for_childs(t_table *table)
 {
 	int			status;
