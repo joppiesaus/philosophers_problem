@@ -6,7 +6,7 @@
 /*   By: jobvan-d <jobvan-d@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/04/11 13:30:57 by jobvan-d      #+#    #+#                 */
-/*   Updated: 2022/05/05 12:53:41 by jobvan-d      ########   odam.nl         */
+/*   Updated: 2022/05/06 13:16:27 by jobvan-d      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	thinker_print_msg(t_thinker *thinker, const char *msg)
 	char	dst[WRITER_BUF_LEN];
 	size_t	i;
 
-	thinker_write_to_str(thinker, dst, &i, msg);
 	sem_wait(thinker->vars->table->stdout_sem);
+	thinker_write_to_str(thinker, dst, &i, msg);
 	if (should_stop_simulation(thinker->vars->table))
 	{
 		sem_post(thinker->vars->table->stdout_sem);
